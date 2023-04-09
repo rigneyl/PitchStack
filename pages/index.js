@@ -36,7 +36,7 @@ const callGenerateEndpoint = async () => {
       <div className="container">
         <div className="header">
           <div className="header-title">
-            <h1>Startup Itch Stack</h1>
+            <h1>Startup Pitch Stack</h1>
           </div>
           <div className="header-subtitle">
             <h2>Enter your startup idea and we will help come up with your initial pitch stack</h2>

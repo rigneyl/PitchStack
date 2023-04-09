@@ -29,7 +29,7 @@ const generateAction = async (req, res) => {
   // I build Prompt #2.
   const secondPrompt = 
   `
-  Take the startup  and pitch below and generate a pitch desk in the styles of Marc Andreessen and Naval Ravikant.
+  Take the startup and pitch below and generate a pitch deck in the styles of Marc Andreessen and Naval Ravikant. Tell it as a compelling story.
 
   Startup: ${req.body.userInput}
 

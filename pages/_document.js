@@ -8,7 +8,7 @@ export default function Document() {
         <meta property="og:description" content="built by luke" key="description"/>
         <meta
           property="og:image"
-          content="https://freeimage.host/i/HkwzIOG"
+          content="https://iili.io/HkwzIOG.md.jpg"
         />
         <meta name="twitter:card" content="summary_large_image"></meta>
       </Head>

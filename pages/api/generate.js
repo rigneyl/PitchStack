@@ -7,9 +7,12 @@ const configuration = new Configuration({
 const openai = new OpenAIApi(configuration);
 const basePromptPrefix =
 `
-Write me a detailed step-by-step recipe by a professional chef for something healthy I can make with the ONLY the ingredients I have available:
+You are an illustrative writer and expert marketer who specializes in venture capital and startup analysis. For the provided startup description,
+write a 7 part narrarative targetting investors on why investing in this startup is great opportunity. Each section should be one sentence. Provide
+the answer as a JSON array with the following format:
+{"problem":"This startup provides a platform to create an online marketplace for small independent sellers to connect with customers, reducing barriers to entry to the e-commerce space and allowing them to reach more customers than ever before,","approach":"By leveraging a network of small business owners, the startup is empowering these merchants to comete with the established players in the e-commerce space, leveling the playing field and providing better value to customers.","solution":"The startup\'s platform offers an easy-to-use interface and low transaction fees for merchants, allowing them to quickly launch their own online store and start selling in minutes.","customer":"The ideal customer for this startup is a small business owner who wants to reach more customers but doesn\u2019t have the resources to set up their own website or pay for expensive advertising.","market":"The total addressable market for this startup is estimated to be around $10 billion globally, with the potential to expand into other markets as the platform becomes more popular.","go to market":"the startup will focus on onboarding small business owners through targeted ads and influencer marketing, as well as building relationships with independent retailers and providing them with the resources they need to get started.","funding":"The startup is looking to raise $3 million in venture capital, with the goal of selling 10-15% of the company for this amount.","inspiring quote":"\'Today\u2019s mighty oak is just yesterday\u2019s nut, that held its ground\' - David Icke"}### STARTUP DESCRIPTION' +input+' .###RESULT (JSON) :';
 
-Recipe:
+Pitch:
 `
 
 const generateAction = async (req, res) => {
@@ -18,8 +21,8 @@ const generateAction = async (req, res) => {
   const baseCompletion = await openai.createCompletion({
     model: 'text-davinci-003',
     prompt: `${basePromptPrefix}${req.body.userInput}`,
-    temperature: 0.8,
-    max_tokens: 250,
+    temperature: 0.7,
+    max_tokens: 1000,
   });
   
   const basePromptOutput = baseCompletion.data.choices.pop();
@@ -27,13 +30,13 @@ const generateAction = async (req, res) => {
   // I build Prompt #2.
   const secondPrompt = 
   `
-  Take the ingredient list and recipe below and generate a blog post written in thwe style of Jamie Oliver. Make it feel like a story.
+  Take the startup  and pitch below and generate a pitch desk in the style of Naval Ravikant.
 
-  Ingredients: ${req.body.userInput}
+  Startup: ${req.body.userInput}
 
-  Recipe: ${basePromptOutput.text}
+  Pitch: ${basePromptOutput.text}
 
-  Blog Post:
+  Pitch Deck:
   `
   
   // I call the OpenAI API a second time with Prompt #2
